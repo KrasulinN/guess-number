@@ -93,4 +93,4 @@
 - [Composer Documentation](https://getcomposer.org/doc/)
 
 ## Ссылки на пакеты
-- [Packagist пакет GuessNumber](заглушка)
+- [Packagist пакет GuessNumber]([заглушка](https://packagist.org/packages/markause/guess-number))
