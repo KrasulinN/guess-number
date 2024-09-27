@@ -13,7 +13,7 @@
         ]
     },
     "bin": [
-        "bin/guess-number.php"
+        "bin/guess-number"
     ],
     "authors": [
         {
