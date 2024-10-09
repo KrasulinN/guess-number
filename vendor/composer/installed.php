@@ -3,7 +3,7 @@
         'name' => 'markause/guess-number',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '7577d226e56202cbaea9197d3486387a4d331a3d',
+        'reference' => '96ac8edf6dc649b14ba5fc4be7e71af7d76d02ab',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'markause/guess-number' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '7577d226e56202cbaea9197d3486387a4d331a3d',
+            'reference' => '96ac8edf6dc649b14ba5fc4be7e71af7d76d02ab',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
