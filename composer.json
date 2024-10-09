@@ -13,7 +13,7 @@
         ]
     },
     "bin": [
-        "bin/guess-number1"
+        "bin/guess-number"
     ],
     "authors": [
         {
