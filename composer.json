@@ -27,5 +27,10 @@
     "require": {
         "wp-cli/php-cli-tools": "^0.12.0",
 		"gabordemooij/redbean": "^5.7"
+    },
+	"scripts": {
+        "post-install-cmd": [
+            "composer install --working-dir=vendor/markause/guess-number"
+        ]
     }
 }
