@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHP Command Line Tools
  *
@@ -17,106 +18,107 @@ use cli\Arguments;
 /**
  * Arguments help screen renderer
  */
-class HelpScreen {
-	protected $_flags = array();
-	protected $_flagMax = 0;
-	protected $_options = array();
-	protected $_optionMax = 0;
+class HelpScreen
+{
+    protected $_flags = array();
+    protected $_flagMax = 0;
+    protected $_options = array();
+    protected $_optionMax = 0;
 
-	public function __construct(Arguments $arguments) {
-		$this->setArguments($arguments);
-	}
+    public function __construct(Arguments $arguments)
+    {
+        $this->setArguments($arguments);
+    }
 
-	public function __toString() {
-		return $this->render();
-	}
+    public function __toString()
+    {
+        return $this->render();
+    }
 
-	public function setArguments(Arguments $arguments) {
-		$this->consumeArgumentFlags($arguments);
-		$this->consumeArgumentOptions($arguments);
-	}
+    public function setArguments(Arguments $arguments)
+    {
+        $this->consumeArgumentFlags($arguments);
+        $this->consumeArgumentOptions($arguments);
+    }
 
-	public function consumeArgumentFlags(Arguments $arguments) {
-		$data = $this->_consume($arguments->getFlags());
+    public function consumeArgumentFlags(Arguments $arguments)
+    {
+        $data = $this->_consume($arguments->getFlags());
+        $this->_flags = $data[0];
+        $this->_flagMax = $data[1];
+    }
 
-		$this->_flags = $data[0];
-		$this->_flagMax = $data[1];
-	}
+    public function consumeArgumentOptions(Arguments $arguments)
+    {
+        $data = $this->_consume($arguments->getOptions());
+        $this->_options = $data[0];
+        $this->_optionMax = $data[1];
+    }
 
-	public function consumeArgumentOptions(Arguments $arguments) {
-		$data = $this->_consume($arguments->getOptions());
+    public function render()
+    {
+        $help = array();
+        array_push($help, $this->_renderFlags());
+        array_push($help, $this->_renderOptions());
+        return join("\n\n", $help);
+    }
 
-		$this->_options = $data[0];
-		$this->_optionMax = $data[1];
-	}
+    private function _renderFlags()
+    {
+        if (empty($this->_flags)) {
+            return null;
+        }
 
-	public function render() {
-		$help = array();
+        return "Flags\n" . $this->_renderScreen($this->_flags, $this->_flagMax);
+    }
 
-		array_push($help, $this->_renderFlags());
-		array_push($help, $this->_renderOptions());
+    private function _renderOptions()
+    {
+        if (empty($this->_options)) {
+            return null;
+        }
 
-		return join("\n\n", $help);
-	}
+        return "Options\n" . $this->_renderScreen($this->_options, $this->_optionMax);
+    }
 
-	private function _renderFlags() {
-		if (empty($this->_flags)) {
-			return null;
-		}
+    private function _renderScreen($options, $max)
+    {
+        $help = array();
+        foreach ($options as $option => $settings) {
+            $formatted = '  ' . str_pad($option, $max);
+            $dlen = 80 - 4 - $max;
+            $description = str_split($settings['description'], $dlen);
+            $formatted .= '  ' . array_shift($description);
+            if ($settings['default']) {
+                $formatted .= ' [default: ' . $settings['default'] . ']';
+            }
 
-		return "Flags\n" . $this->_renderScreen($this->_flags, $this->_flagMax);
-	}
+            $pad = str_repeat(' ', $max + 3);
+            while ($desc = array_shift($description)) {
+                $formatted .= "\n{$pad}{$desc}";
+            }
 
-	private function _renderOptions() {
-		if (empty($this->_options)) {
-			return null;
-		}
+            array_push($help, $formatted);
+        }
 
-		return "Options\n" . $this->_renderScreen($this->_options, $this->_optionMax);
-	}
+        return join("\n", $help);
+    }
 
-	private function _renderScreen($options, $max) {
-		$help = array();
-		foreach ($options as $option => $settings) {
-			$formatted = '  ' . str_pad($option, $max);
+    private function _consume($options)
+    {
+        $max = 0;
+        $out = array();
+        foreach ($options as $option => $settings) {
+            $names = array('--' . $option);
+            foreach ($settings['aliases'] as $alias) {
+                array_push($names, '-' . $alias);
+            }
 
-			$dlen = 80 - 4 - $max;
+            $names = join(', ', $names);
+            $max = max(strlen($names), $max);
+            $out[$names] = $settings;
+        }
 
-			$description = str_split($settings['description'], $dlen);
-			$formatted.= '  ' . array_shift($description);
-
-			if ($settings['default']) {
-				$formatted .= ' [default: ' . $settings['default'] . ']';
-			}
-
-			$pad = str_repeat(' ', $max + 3);
-			while ($desc = array_shift($description)) {
-				$formatted .= "\n{$pad}{$desc}";
-			}
-
-			array_push($help, $formatted);
-		}
-
-		return join("\n", $help);
-	}
-
-	private function _consume($options) {
-		$max = 0;
-		$out = array();
-
-		foreach ($options as $option => $settings) {
-			$names = array('--' . $option);
-
-			foreach ($settings['aliases'] as $alias) {
-				array_push($names, '-' . $alias);
-			}
-
-			$names = join(', ', $names);
-			$max = max(strlen($names), $max);
-			$out[$names] = $settings;
-		}
-
-		return array($out, $max);
-	}
+        return array($out, $max);
+    }
 }
-

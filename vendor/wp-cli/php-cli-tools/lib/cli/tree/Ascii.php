@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHP Command Line Tools
  *
@@ -15,8 +16,8 @@ namespace cli\tree;
 /**
  * The ASCII renderer renders trees with ASCII lines.
  */
-class Ascii extends Renderer {
-
+class Ascii extends Renderer
+{
     /**
      * @param array $tree
      * @return string
@@ -24,18 +25,11 @@ class Ascii extends Renderer {
     public function render(array $tree)
     {
         $output = '';
-
-        $treeIterator = new \RecursiveTreeIterator(
-            new \RecursiveArrayIterator($tree),
-            \RecursiveTreeIterator::SELF_FIRST
-        );
-
-        foreach ($treeIterator as $val)
-        {
+        $treeIterator = new \RecursiveTreeIterator(new \RecursiveArrayIterator($tree), \RecursiveTreeIterator::SELF_FIRST);
+        foreach ($treeIterator as $val) {
             $output .= $val . "\n";
         }
 
         return $output;
     }
-
 }

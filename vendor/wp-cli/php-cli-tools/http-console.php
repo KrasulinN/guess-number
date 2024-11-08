@@ -1,33 +1,33 @@
 <?php
+
 /**
  * An example application using php-cli-tools and Buzz
  */
 
 require_once __DIR__ . '/vendor/autoload.php';
-
 define('BUZZ_PATH', realpath('../Buzz'));
 define('SCRIPT_NAME', array_shift($argv));
-
 require_once BUZZ_PATH . '/lib/Buzz/ClassLoader.php';
 Buzz\ClassLoader::register();
 
-class HttpConsole {
+class HttpConsole
+{
     protected $_host;
     protected $_prompt;
 
-    public function __construct($host) {
+    public function __construct($host)
+    {
         $this->_host = 'http://' . $host;
         $this->_prompt = '%K' . $this->_host . '%n/%K>%n ';
     }
 
-    public function handleRequest($type, $path) {
+    public function handleRequest($type, $path)
+    {
         $request = new Buzz\Message\Request($type, $path, $this->_host);
-        $response = new Buzz\Message\Response;
-
+        $response = new Buzz\Message\Response();
         $client = new Buzz\Client\FileGetContents();
         $client->send($request, $response);
-
-        // Display headers
+// Display headers
         foreach ($response->getHeaders() as $i => $header) {
             if ($i == 0) {
                 \cli\line('%G{:header}%n', compact('header'));
@@ -44,10 +44,10 @@ class HttpConsole {
         }
     }
 
-    public function run() {
+    public function run()
+    {
         while (true) {
             $cmd = \cli\prompt($this->_prompt, false, null);
-
             if (preg_match('/^(HEAD|GET|POST|PUT|DELETE) (\S+)$/', $cmd, $matches)) {
                 $this->handleRequest($matches[1], $matches[2]);
                 continue;
@@ -66,5 +66,3 @@ try {
 } catch (\Exception $e) {
     \cli\err("\n\n%R" . $e->getMessage() . "%n\n");
 }
-
-?>

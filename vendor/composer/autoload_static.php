@@ -15,31 +15,31 @@ class ComposerStaticInite7c63d28f96d8e7034b7e355c803c6f9
     );
 
     public static $prefixLengthsPsr4 = array (
-        'R' => 
+        'R' =>
         array (
             'RedBeanPHP\\' => 11,
         ),
-        'M' => 
+        'M' =>
         array (
             'Markause\\GuessNumber\\' => 21,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'RedBeanPHP\\' => 
+        'RedBeanPHP\\' =>
         array (
             0 => __DIR__ . '/..' . '/gabordemooij/redbean/RedBeanPHP',
         ),
-        'Markause\\GuessNumber\\' => 
+        'Markause\\GuessNumber\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
     public static $prefixesPsr0 = array (
-        'c' => 
+        'c' =>
         array (
-            'cli' => 
+            'cli' =>
             array (
                 0 => __DIR__ . '/..' . '/wp-cli/php-cli-tools/lib',
             ),
@@ -57,7 +57,6 @@ class ComposerStaticInite7c63d28f96d8e7034b7e355c803c6f9
             $loader->prefixDirsPsr4 = ComposerStaticInite7c63d28f96d8e7034b7e355c803c6f9::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInite7c63d28f96d8e7034b7e355c803c6f9::$prefixesPsr0;
             $loader->classMap = ComposerStaticInite7c63d28f96d8e7034b7e355c803c6f9::$classMap;
-
         }, null, ClassLoader::class);
     }
 }

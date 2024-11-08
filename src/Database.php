@@ -2,10 +2,12 @@
 
 namespace Markause\GuessNumber;
 
-use \RedBeanPHP\R as R;
+use RedBeanPHP\R as R;
 
-class Database {
-    public function __construct($dbPath) {
+class Database
+{
+    public function __construct($dbPath)
+    {
         // Проверка существования каталога и создание его, если необходимо
         $dir = dirname($dbPath);
         if (!is_dir($dir)) {
@@ -25,7 +27,8 @@ class Database {
         $this->createTables();
     }
 
-    private function createTables() {
+    private function createTables()
+    {
         // Создание таблицы games, если она не существует
         if (!R::findOne('games')) {
             R::exec("CREATE TABLE games (
@@ -51,7 +54,8 @@ class Database {
         }
     }
 
-    public function saveGame($game) {
+    public function saveGame($game)
+    {
         // Сохранение игры
         $gameBean = R::dispense('games');
         $gameBean->player_name = $game->getPlayerName();
@@ -75,23 +79,28 @@ class Database {
         echo "Game saved with ID: $gameId\n";
     }
 
-    public function getGames() {
+    public function getGames()
+    {
         return R::findAll('games', 'ORDER BY date DESC');
     }
 
-    public function getGamesByResult($result) {
+    public function getGamesByResult($result)
+    {
         return R::find('games', 'result = ? ORDER BY date DESC', [$result]);
     }
 
-    public function getGame($id) {
+    public function getGame($id)
+    {
         return R::load('games', $id);
     }
 
-    public function getAttempts($gameId) {
+    public function getAttempts($gameId)
+    {
         return R::find('attempts', 'game_id = ? ORDER BY attempt_number ASC', [$gameId]);
     }
 
-    public function getPlayerStats() {
+    public function getPlayerStats()
+    {
         return R::getAll("SELECT player_name, 
                                   COUNT(CASE WHEN result = 'win' THEN 1 END) AS wins,
                                   COUNT(CASE WHEN result = 'lose' THEN 1 END) AS losses
