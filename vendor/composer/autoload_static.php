@@ -10,9 +10,15 @@ class ComposerStaticInite7c63d28f96d8e7034b7e355c803c6f9
         'be01b9b16925dcb22165c40b46681ac6' => __DIR__ . '/..' . '/wp-cli/php-cli-tools/lib/cli/cli.php',
         '5dbb12a114818c2b4ab0a3865df9dd67' => __DIR__ . '/../..' . '/src/Controller.php',
         '087dfcc9b326ca567a28044673105f6c' => __DIR__ . '/../..' . '/src/View.php',
+        '6018fb76c7f77dec10919aa41a93760e' => __DIR__ . '/../..' . '/src/Game.php',
+        '650c3d0d7357ce804c821fa2a82b9190' => __DIR__ . '/../..' . '/src/Database.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'R' => 
+        array (
+            'RedBeanPHP\\' => 11,
+        ),
         'M' => 
         array (
             'Markause\\GuessNumber\\' => 21,
@@ -20,6 +26,10 @@ class ComposerStaticInite7c63d28f96d8e7034b7e355c803c6f9
     );
 
     public static $prefixDirsPsr4 = array (
+        'RedBeanPHP\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/gabordemooij/redbean/RedBeanPHP',
+        ),
         'Markause\\GuessNumber\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
