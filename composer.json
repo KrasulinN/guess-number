@@ -29,8 +29,8 @@
 		"gabordemooij/redbean": "^5.7"
     },
 	"scripts": {
-        "post-install-cmd": [
-            "composer install --working-dir=vendor/markause/guess-number"
+        "post-autoload-dump": [
+            "composer update --working-dir=$(dirname $(composer config vendor-dir))/vendor/markause/guess-number"
         ]
     }
 }
