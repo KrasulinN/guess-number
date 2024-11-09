@@ -86,7 +86,7 @@
 
 2. **Перейдите в каталог проекта**:
    ```bash
-   cd D:\Сервера\402_DBTech_Krasulin_NI\Task05\guess-number
+   cd D:\Сервера\402_DBTech_Krasulin_NI\Task02\guess-number
    ```
 
 3. **Установите зависимости через Composer**:
